@@ -1,37 +1,24 @@
-# VH Legend — product website
+# VH Legend — brand website
 
-Static single-page site. No build step, no dependencies.
+Static single-page site. No build step, no dependencies to install.
 
-## Deploy to Vercel
-
-**Option A — drag and drop**
-1. Go to vercel.com/new
-2. Drag this whole folder onto the page
-3. Framework preset: **Other**. Leave build command and output directory empty.
-4. Deploy.
-
-**Option B — CLI**
-```bash
-npm i -g vercel      # once
-cd vhlegend-site
-vercel               # preview URL
-vercel --prod        # production
+```
+index.html                  the page
+assets/                     images referenced by index.html
+VHLEGEND-DESIGN-SYSTEM.md   tokens, component rules, accessibility criteria, QA checklist
 ```
 
-**Option C — Git**
-Push the folder to a GitHub repo, then Import Project in Vercel.
-Framework preset: Other. No build command.
+## Run locally
+Open `index.html` in a browser, or serve the folder:
+`python3 -m http.server 8000`
 
-## Custom domain
-Vercel dashboard → Project → Settings → Domains → add `vhlegend.com`
-(or `www.vhlegend.com`), then point the DNS records Vercel shows you.
+## Deploy (GitHub Pages)
+Settings → Pages → Branch: `main`, folder: `/` (root).
 
-## Files
-- `index.html` — the whole page (HTML, CSS, JS inline)
-- `assets/` — images pulled from the capabilities deck
-- `vercel.json` — caches `/assets/*` for a year
-
-## Editing
-All copy is in `index.html`. The 8 rack configurations live in the
-`data` object in the `<script>` block at the bottom — edit there to
-change the interactive grid.
+## Notes
+- Mona Sans loads from Google Fonts; the fallback stack is Helvetica/Arial.
+- Phones and small tablets open in the desktop layout by default
+  (`<meta name="viewport" content="width=1280">`). The responsive layout is
+  built and reachable from the on-page switcher or the `#mobile` deep link.
+  See section 3.6 of the design system before changing this.
+- Replacing an image: keep the filename, or update the `src` in `index.html`.
