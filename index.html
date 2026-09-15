@@ -5,6 +5,10 @@
 <meta id="vp" name="viewport" content="width=1280">
 <title>VH Legend — AI Infrastructure Manufacturing &amp; Deployment Partner</title>
 <meta name="description" content="Legend engineers, manufactures and deploys the physical infrastructure behind AI: racks, power, cooling, monitoring and deployment. Designed for AI. Manufactured in Vietnam. Delivered globally from Singapore.">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#0c1730">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
@@ -218,10 +222,13 @@ nav a:active{color:var(--color-brand-100)}
 @media (max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:520px){.stats{grid-template-columns:1fr}}
 .pullquote{
-  margin-top:var(--space-12);padding:var(--space-10) var(--space-11);
+  /* Spans the full content column so its edges line up with the grid above.
+     The text inside keeps a readable measure rather than running the full width. */
+  margin-top:var(--space-12);padding:var(--space-11);
   background:var(--color-brand-800);color:#fff;border-radius:var(--radius-xs);
-  font-size:var(--font-size-2xl);line-height:1.5;max-width:90ch;
 }
+.pullquote p{font-size:var(--font-size-2xl);line-height:1.5;max-width:72ch;margin:0}
+@media (max-width:640px){.pullquote{padding:var(--space-10)}}
 
 /* ---------- split ---------- */
 .split{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--space-12);align-items:center;margin-top:var(--space-12)}
@@ -546,7 +553,7 @@ footer{border-top:var(--rule-dark);background:var(--color-brand-900);color:#8e9a
       <div class="stat"><b>28%</b><p>say AI already consumes more than 10% of enterprise ICT budgets</p></div>
     </div>
     <p class="note" style="margin-top:var(--space-9)">Source: McKinsey Global AI Survey, 2025.</p>
-    <p class="pullquote">The market is moving from buying AI software to building the physical infrastructure needed to deploy AI at scale. That is precisely where Legend operates.</p>
+    <div class="pullquote"><p>The market is moving from buying AI software to building the physical infrastructure needed to deploy AI at scale. That is precisely where Legend operates.</p></div>
   </div>
 </section>
 
@@ -833,7 +840,7 @@ footer{border-top:var(--rule-dark);background:var(--color-brand-900);color:#8e9a
         <div class="openitem"><b>Cable management</b><span>your structured cabling standard</span></div>
       </div>
     </div>
-    <p class="pullquote">No single-vendor stack. Your infrastructure investment stays flexible as it grows.</p>
+    <div class="pullquote"><p>No single-vendor stack. Your infrastructure investment stays flexible as it grows.</p></div>
   </div>
 </section>
 

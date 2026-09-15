@@ -126,11 +126,21 @@ The signature component: eight configurations plotted as cooling method × rack 
   (McKinsey Global AI Survey 2025; Singapore ICT energy share). A figure without
   a visible source must not ship.
 
-### 3.5 Section header (`.kicker` + `h2` + `.sub`)
+### 3.5 Pull quote (`.pullquote`)
+- **Anatomy:** plain `brand.800` panel, one short claim. No rule, no marker —
+  the dark panel against the white section is the emphasis.
+- **Width rule:** the panel must span the full content column so its edges align
+  with the grid above it. A panel that stops short of the grid edge reads as a
+  mistake, not as emphasis.
+- **Measure rule:** the text inside is capped at `72ch`. Trailing space on the
+  right is intentional — the panel aligns, the line length stays readable.
+- **States:** static content; not a control, so no hover.
+
+### 3.6 Section header (`.kicker` + `h2` + `.sub`)
 - Kicker is sentence case with a 28 × 2 px gold rule, never all caps.
 - One `h2` per section, `20ch` maximum, stated as a claim rather than a label.
 
-### 3.6 View switcher (`.viewtoggle`)
+### 3.7 View switcher (`.viewtoggle`)
 The site ships with a 1280 px viewport, so phones and small tablets render the
 desktop layout at true proportions by default. Desktop browsers ignore the
 viewport meta entirely and are unaffected. The switcher lets a visitor drop to
@@ -170,7 +180,7 @@ the responsive layout.
   the switcher. Revisit if mobile bounce rate or search ranking becomes a
   concern.
 
-### 3.7 Navigation (`header`, `nav`)
+### 3.8 Navigation (`header`, `nav`)
 - Sticky, `brand.900` at 94% with backdrop blur, hairline bottom border.
 - Links show a gold 2 px underline on hover and a visible focus ring on tab.
 - Below 1000 px the link list is withdrawn and the primary CTA persists — the
@@ -282,6 +292,8 @@ Examples:
 - [ ] Label-plus-qualifier pairs (`.group li`, `.flow div`) stack rather than
       competing for one line below 640 px.
 - [ ] Anchor navigation lands below the sticky header (`scroll-margin-top`).
+- [ ] Full-width panels (pull quotes, bands) share left and right edges with the
+      grid in the same section — measure, don't eyeball.
 - [ ] On a phone the document opens at `width=1280`; the switcher returns to
       `width=device-width` and back, and stays tappable in both views.
 - [ ] On a desktop browser the switcher is hidden and the layout is untouched.
