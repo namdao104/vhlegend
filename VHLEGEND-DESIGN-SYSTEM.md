@@ -238,8 +238,13 @@ Examples:
   primary action; a second accent destroys that association.
 - Do not add decorative gradients, glows or floating particles to the dark
   sections. The dark surface is the factory, not a product launch.
-- Do not animate sections on scroll. Motion is reserved for what answers a
-  click — currently only the configuration readout.
+- Do not animate sections on scroll. Motion is reserved for two cases: what
+  answers a click (the configuration readout), and motion that carries
+  information a static image cannot. The world map is the only instance of the
+  second: the dashes flow toward Singapore, so the line states direction as well
+  as connection. It runs only while the map is in the viewport, and is disabled
+  entirely under `prefers-reduced-motion: reduce`. A new animation must clear the
+  same bar — decorative reveals do not.
 - Do not collapse the configuration matrix into a flat list of cards. The
   stacked mobile presentation is permitted only because it keeps both axes —
   cooling method as the group heading, density inside the chip. A list that
@@ -301,7 +306,9 @@ Examples:
       four factory photos in one row, three products in one row.
 - [ ] `text-size-adjust: 100%` is present; body copy does not inflate in
       forced-desktop.
-- [ ] `prefers-reduced-motion: reduce` disables transitions and smooth scroll.
+- [ ] `prefers-reduced-motion: reduce` disables transitions, smooth scroll and
+      the map animation (computed `animation-name` must read `none`).
+- [ ] The map animation stops when the map leaves the viewport.
 - [ ] Every content image has meaningful `alt`; the hero background is hidden.
 - [ ] Every statistic shows its source; every indicative figure is labelled.
 - [ ] Every phone and email is an actionable link and matches the deck exactly.
