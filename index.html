@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<meta id="vp" name="viewport" content="width=1280">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>VH Legend — AI Infrastructure Manufacturing &amp; Deployment Partner</title>
 <meta name="description" content="Legend engineers, manufactures and deploys the physical infrastructure behind AI: racks, power, cooling, monitoring and deployment. Designed for AI. Manufactured in Vietnam. Delivered globally from Singapore.">
 <!-- Link preview (Zalo, Messenger, Telegram, LinkedIn, Slack, X).
      og:image and og:url MUST be absolute URLs, and must match the canonical
      host — www.vhlegend.com, since the apex redirects to www. -->
-<link rel="canonical" href="https://www.vhlegend.com/"><link rel="alternate" hreflang="en" href="https://www.vhlegend.com/"><link rel="alternate" hreflang="vi" href="https://www.vhlegend.com/vi/"><link rel="alternate" hreflang="ko" href="https://www.vhlegend.com/ko/"><link rel="alternate" hreflang="x-default" href="https://www.vhlegend.com/">
+<link rel="canonical" href="https://www.vhlegend.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="VH Legend">
 <meta property="og:title" content="VH Legend — AI infrastructure manufacturing and deployment partner">
@@ -170,17 +170,6 @@ h2{font-size:clamp(28px,3.4vw,var(--font-size-5xl));max-width:20ch}
 .wa-list a svg{width:20px;height:20px;color:#25D366;flex:none}
 .wa-list a span{font-weight:400;color:var(--color-text-secondary);font-size:var(--font-size-md)}
 .wa-list a:hover{background:#f4f6fb}
-/* The review toggle only appears on small screens, where it is wide enough to
-   reach across; the WhatsApp cluster sits above it rather than beside it. */
-@media (max-width:820px){.wa{bottom:calc(var(--space-9) + 54px)}}
-/* In the forced-desktop view the toggle is scaled up, so it sits in the
-   opposite corner from WhatsApp instead of stacking. */
-html.forced-desktop .wa{right:48px;bottom:48px;gap:20px}
-html.forced-desktop .wa-btn{width:150px;height:150px}
-html.forced-desktop .wa-btn svg{width:86px;height:86px}
-html.forced-desktop .wa-list a{font-size:40px;padding:22px 30px;gap:18px;border-radius:200px}
-html.forced-desktop .wa-list a svg{width:52px;height:52px}
-html.forced-desktop .wa-list a span{font-size:30px}
 
 /* ---------- enquiry dialog ---------- */
 dialog.enquiry{border:0;padding:0;background:transparent;max-width:min(560px,calc(100% - 32px));width:100%;
@@ -248,25 +237,6 @@ dialog.enquiry::backdrop{background:rgba(6,12,26,.72);backdrop-filter:blur(3px)}
 .lang-menu a[aria-current="true"]{color:var(--color-accent-bright);font-weight:600}
 @media (max-width:1000px){.langs{margin-left:auto;padding-left:0;border-left:0}}
 @media (max-width:520px){.lang-code{display:none}}
-
-/* ---------- view toggle (small screens only) ---------- */
-.viewtoggle{
-  display:none;position:fixed;right:var(--space-9);bottom:var(--space-9);z-index:60;
-  align-items:center;gap:var(--space-5);font:inherit;font-size:var(--font-size-lg);font-weight:600;
-  background:var(--color-brand-900);color:#fff;border:1px solid var(--color-accent);
-  border-radius:var(--radius-xs);padding:var(--space-6) var(--space-8);cursor:pointer;
-  box-shadow:0 6px 24px rgba(0,0,0,.35);
-}
-.viewtoggle::before{content:"";width:9px;height:9px;background:var(--color-accent);flex:none}
-.viewtoggle:hover{background:var(--color-brand-800)}
-@media (max-width:820px){.viewtoggle{display:flex}}
-/* When the desktop layout is forced onto a phone the whole page is scaled down,
-   so the control is sized up to stay tappable at the device's real pixel size. */
-html.forced-desktop .viewtoggle{
-  display:flex;right:auto;left:48px;bottom:48px;font-size:44px;gap:16px;
-  padding:26px 36px;border-width:3px;border-radius:12px;
-}
-html.forced-desktop .viewtoggle::before{width:26px;height:26px}
 
 /* ---------- header ---------- */
 header{
@@ -567,6 +537,16 @@ nav a:active{color:var(--color-brand-100)}
 .readout .meta{margin-top:var(--space-5);font-size:var(--font-size-lg);color:var(--color-accent-ink);font-weight:600}
 .readout p{margin-top:var(--space-7);color:var(--color-text-secondary);max-width:var(--measure)}
 
+/* ---------- rack showcase ---------- */
+.rackshow{display:grid;grid-template-columns:1fr 0.85fr;gap:var(--space-12);align-items:center}
+@media (max-width:900px){.rackshow{grid-template-columns:1fr;gap:var(--space-10)}}
+.rackshow .lede{max-width:none}
+.rackshow ul{list-style:none;margin:var(--space-10) 0 0;padding:0;display:grid;gap:var(--space-6)}
+.rackshow li{display:flex;gap:var(--space-6);align-items:baseline;font-size:var(--font-size-xl);font-weight:600}
+.rackshow li::before{content:"";width:9px;height:9px;flex:none;background:var(--color-accent);transform:translateY(-1px)}
+.rackvid{position:relative;justify-self:center;width:100%;max-width:430px}
+.rackvid video{width:100%;height:auto;display:block;aspect-ratio:480/654}
+
 /* ---------- products ---------- */
 .products{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-10);margin-top:var(--space-12)}
 @media (max-width:900px){.products{grid-template-columns:1fr}}
@@ -741,7 +721,6 @@ footer{border-top:var(--rule-dark);background:var(--color-brand-900);color:#8e9a
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<button class="viewtoggle" id="viewtoggle" type="button" aria-pressed="false">Desktop view</button>
 
 <header>
   <div class="wrap bar">
@@ -754,7 +733,7 @@ footer{border-top:var(--rule-dark);background:var(--color-brand-900);color:#8e9a
       <a href="#trusted">Partnership</a>
     </nav>
     <a class="btn btn-primary" href="#enquiry" data-enquiry>Contact us</a>
-    <div class="langs"><button type="button" class="lang-btn" aria-haspopup="listbox" aria-expanded="false"><span class="flag"><svg viewBox="0 0 60 30" aria-hidden="true"><clipPath id="fen"><path d="M0,0 v30 h60 v-30 z"/></clipPath><g clip-path="url(#fen)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></g></svg></span><span class="lang-code">EN</span><svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M1,1 L5,5 L9,1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button><div class="lang-menu" role="listbox" hidden><a role="option" href="index.html" hreflang="en" lang="en" aria-current="true"><span class="flag"><svg viewBox="0 0 60 30" aria-hidden="true"><clipPath id="fen"><path d="M0,0 v30 h60 v-30 z"/></clipPath><g clip-path="url(#fen)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></g></svg></span>English</a><a role="option" href="vi/index.html" hreflang="vi" lang="vi"><span class="flag"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#DA251D"/><path fill="#FF0" d="M30,10 l2.94,9.05 9.51,0 -7.7,5.59 2.94,9.05 -7.69,-5.6 -7.69,5.6 2.94,-9.05 -7.7,-5.59 9.51,0 z"/></svg></span>Tiếng Việt</a><a role="option" href="ko/index.html" hreflang="ko" lang="ko"><span class="flag"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#fff"/><path d="M30,12 a8,8 0 0,1 0,16 a8,8 0 0,1 0,-16" fill="#CD2E3A"/><path d="M30,20 a4,4 0 0,1 0,8 a4,4 0 0,0 0,-8" fill="#0047A0"/><path d="M30,12 a8,8 0 0,0 0,16 a4,4 0 0,0 0,-8 a4,4 0 0,1 0,-8" fill="#CD2E3A"/><circle cx="30" cy="20" r="8" fill="none"/><g fill="#000"><rect x="9" y="7" width="9" height="1.4"/><rect x="9" y="9.6" width="9" height="1.4"/><rect x="9" y="12.2" width="9" height="1.4"/><rect x="42" y="7" width="9" height="1.4"/><rect x="42" y="9.6" width="4" height="1.4"/><rect x="47" y="9.6" width="4" height="1.4"/><rect x="42" y="12.2" width="9" height="1.4"/><rect x="9" y="26.4" width="4" height="1.4"/><rect x="14" y="26.4" width="4" height="1.4"/><rect x="9" y="29" width="9" height="1.4"/><rect x="9" y="31.6" width="4" height="1.4"/><rect x="14" y="31.6" width="4" height="1.4"/><rect x="42" y="26.4" width="4" height="1.4"/><rect x="47" y="26.4" width="4" height="1.4"/><rect x="42" y="29" width="4" height="1.4"/><rect x="47" y="29" width="4" height="1.4"/><rect x="42" y="31.6" width="4" height="1.4"/><rect x="47" y="31.6" width="4" height="1.4"/></g></svg></span>한국어</a></div></div>
+    <!-- LANGS -->
   </div>
 </header>
 
@@ -1097,8 +1076,31 @@ footer{border-top:var(--rule-dark);background:var(--color-brand-900);color:#8e9a
   </div>
 </section>
 
+<!-- ================= RACK SHOWCASE ================= -->
+<section id="rack">
+  <div class="wrap rackshow">
+    <div class="lede">
+      <p class="kicker">AI infrastructure manufacturing &amp; deployment partner</p>
+      <h2>The rack is our platform, not our whole proposition.</h2>
+      <p class="sub">Legend engineers, manufactures and deploys every physical layer an AI hall needs, as one system or as the single layer you are missing.</p>
+      <ul>
+        <li>Designed for AI</li>
+        <li>Manufactured in Vietnam</li>
+        <li>Delivered globally from Singapore</li>
+      </ul>
+    </div>
+    <figure class="rackvid" style="margin:0">
+      <video muted playsinline preload="none" poster="assets/rack-open-poster.jpg?v=2"
+             aria-label="A Legend AI rack with its door swinging open to reveal the installed servers and cabling">
+        <source src="assets/rack-open.webm" type="video/webm">
+        <source src="assets/rack-open.mp4" type="video/mp4">
+      </video>
+    </figure>
+  </div>
+</section>
+
 <!-- ================= TRUSTED ================= -->
-<section id="trusted">
+<section id="trusted" class="tint">
   <div class="wrap">
     <div class="lede">
       <p class="kicker">Trusted by</p>
@@ -1653,6 +1655,21 @@ footer{border-top:var(--rule-dark);background:var(--color-brand-900);color:#8e9a
     io.observe(el);
   }
 
+  // The rack clip plays once, when it reaches the screen. It stays on its last
+  // frame afterwards rather than looping.
+  var rackVid = document.querySelector('.rackvid video');
+  if (rackVid) {
+    if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) {
+      rackVid.removeAttribute('preload');            // poster only
+    } else {
+      onceInView(rackVid, function(){
+        rackVid.preload = 'auto';
+        var go = rackVid.play();
+        if (go && go.catch) go.catch(function(){});   // autoplay blocked: poster stands in
+      });
+    }
+  }
+
   var strip = document.querySelector('.specstrip');
   onceInView(strip, function(){ countUp(strip.querySelectorAll('dd'), 3000, 100); });
 
@@ -1703,44 +1720,6 @@ footer{border-top:var(--rule-dark);background:var(--color-brand-900);color:#8e9a
   } else {
     panel.classList.add('is-live');
   }
-})();
-
-/* View switcher. The document ships with a 1280 px viewport, so a phone renders
-   the desktop layout at true proportions by default; desktop browsers ignore
-   the meta tag and are unaffected. The control lets a visitor drop to the
-   responsive layout, and #mobile opens there directly. */
-(function(){
-  var DESKTOP = 'width=1280';
-  var MOBILE  = 'width=device-width, initial-scale=1';
-  var btn = document.getElementById('viewtoggle');
-
-  // screen.* reports the hardware, which the viewport meta cannot change —
-  // window.innerWidth would already read 1280 here.
-  var small = Math.min(screen.width || 9999, screen.height || 9999) <= 820;
-  var forced = small;
-
-  function apply(next){
-    forced = next;
-    // Replacing the node is more reliable than editing content in place on iOS.
-    var old = document.getElementById('vp');
-    var vp = document.createElement('meta');
-    vp.id = 'vp'; vp.name = 'viewport';
-    vp.content = next ? DESKTOP : MOBILE;
-    old.parentNode.replaceChild(vp, old);
-    document.documentElement.classList.toggle('forced-desktop', next);
-    btn.textContent = next ? 'Mobile view' : 'Desktop view';
-    btn.setAttribute('aria-pressed', next ? 'true' : 'false');
-    setTimeout(function(){ window.dispatchEvent(new Event('resize')); }, 60);
-  }
-
-  if (!small) {
-    // A real desktop: leave the meta alone, keep the control hidden.
-    btn.textContent = 'Desktop view';
-  } else {
-    apply(location.hash !== '#mobile');
-  }
-
-  btn.addEventListener('click', function(){ apply(!forced); });
 })();
 
 (function(){
