@@ -3,7 +3,7 @@
 <html lang="vi" dir="ltr">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=1280" id="vp" name="viewport"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>VH Legend — Đối tác sản xuất và triển khai hạ tầng AI</title>
 <meta content="Legend thiết kế, sản xuất và triển khai hạ tầng vật lý cho AI: tủ rack, nguồn điện, làm mát, giám sát và triển khai. Thiết kế cho AI. Sản xuất tại Việt Nam. Giao toàn cầu từ Singapore." name="description"/>
 <!-- Link preview (Zalo, Messenger, Telegram, LinkedIn, Slack, X).
@@ -171,17 +171,6 @@ h2{font-size:clamp(28px,3.4vw,var(--font-size-5xl));max-width:20ch}
 .wa-list a svg{width:20px;height:20px;color:#25D366;flex:none}
 .wa-list a span{font-weight:400;color:var(--color-text-secondary);font-size:var(--font-size-md)}
 .wa-list a:hover{background:#f4f6fb}
-/* The review toggle only appears on small screens, where it is wide enough to
-   reach across; the WhatsApp cluster sits above it rather than beside it. */
-@media (max-width:820px){.wa{bottom:calc(var(--space-9) + 54px)}}
-/* In the forced-desktop view the toggle is scaled up, so it sits in the
-   opposite corner from WhatsApp instead of stacking. */
-html.forced-desktop .wa{right:48px;bottom:48px;gap:20px}
-html.forced-desktop .wa-btn{width:150px;height:150px}
-html.forced-desktop .wa-btn svg{width:86px;height:86px}
-html.forced-desktop .wa-list a{font-size:40px;padding:22px 30px;gap:18px;border-radius:200px}
-html.forced-desktop .wa-list a svg{width:52px;height:52px}
-html.forced-desktop .wa-list a span{font-size:30px}
 
 /* ---------- enquiry dialog ---------- */
 dialog.enquiry{border:0;padding:0;background:transparent;max-width:min(560px,calc(100% - 32px));width:100%;
@@ -249,25 +238,6 @@ dialog.enquiry::backdrop{background:rgba(6,12,26,.72);backdrop-filter:blur(3px)}
 .lang-menu a[aria-current="true"]{color:var(--color-accent-bright);font-weight:600}
 @media (max-width:1000px){.langs{margin-left:auto;padding-left:0;border-left:0}}
 @media (max-width:520px){.lang-code{display:none}}
-
-/* ---------- view toggle (small screens only) ---------- */
-.viewtoggle{
-  display:none;position:fixed;right:var(--space-9);bottom:var(--space-9);z-index:60;
-  align-items:center;gap:var(--space-5);font:inherit;font-size:var(--font-size-lg);font-weight:600;
-  background:var(--color-brand-900);color:#fff;border:1px solid var(--color-accent);
-  border-radius:var(--radius-xs);padding:var(--space-6) var(--space-8);cursor:pointer;
-  box-shadow:0 6px 24px rgba(0,0,0,.35);
-}
-.viewtoggle::before{content:"";width:9px;height:9px;background:var(--color-accent);flex:none}
-.viewtoggle:hover{background:var(--color-brand-800)}
-@media (max-width:820px){.viewtoggle{display:flex}}
-/* When the desktop layout is forced onto a phone the whole page is scaled down,
-   so the control is sized up to stay tappable at the device's real pixel size. */
-html.forced-desktop .viewtoggle{
-  display:flex;right:auto;left:48px;bottom:48px;font-size:44px;gap:16px;
-  padding:26px 36px;border-width:3px;border-radius:12px;
-}
-html.forced-desktop .viewtoggle::before{width:26px;height:26px}
 
 /* ---------- header ---------- */
 header{
@@ -568,6 +538,16 @@ nav a:active{color:var(--color-brand-100)}
 .readout .meta{margin-top:var(--space-5);font-size:var(--font-size-lg);color:var(--color-accent-ink);font-weight:600}
 .readout p{margin-top:var(--space-7);color:var(--color-text-secondary);max-width:var(--measure)}
 
+/* ---------- rack showcase ---------- */
+.rackshow{display:grid;grid-template-columns:1fr 0.85fr;gap:var(--space-12);align-items:center}
+@media (max-width:900px){.rackshow{grid-template-columns:1fr;gap:var(--space-10)}}
+.rackshow .lede{max-width:none}
+.rackshow ul{list-style:none;margin:var(--space-10) 0 0;padding:0;display:grid;gap:var(--space-6)}
+.rackshow li{display:flex;gap:var(--space-6);align-items:baseline;font-size:var(--font-size-xl);font-weight:600}
+.rackshow li::before{content:"";width:9px;height:9px;flex:none;background:var(--color-accent);transform:translateY(-1px)}
+.rackvid{position:relative;justify-self:center;width:100%;max-width:430px}
+.rackvid video{width:100%;height:auto;display:block;aspect-ratio:480/654}
+
 /* ---------- products ---------- */
 .products{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-10);margin-top:var(--space-12)}
 @media (max-width:900px){.products{grid-template-columns:1fr}}
@@ -742,7 +722,6 @@ footer{border-top:var(--rule-dark);background:var(--color-brand-900);color:#8e9a
 </head>
 <body>
 <a class="skip" href="#main">Tới nội dung chính</a>
-<button aria-pressed="false" class="viewtoggle" id="viewtoggle" type="button">Xem bản desktop</button>
 <header>
 <div class="wrap bar">
 <a aria-label="VH Legend — trang chủ" class="logo" href="#top"><img alt="VH Legend" src="../assets/logo.png?v=2"/></a>
@@ -1075,8 +1054,29 @@ footer{border-top:var(--rule-dark);background:var(--color-brand-900);color:#8e9a
 </div>
 </div>
 </section>
+<!-- ================= RACK SHOWCASE ================= -->
+<section id="rack">
+<div class="wrap rackshow">
+<div class="lede">
+<p class="kicker">Đối tác sản xuất và triển khai hạ tầng AI</p>
+<h2>Tủ rack là nền tảng của chúng tôi, không phải toàn bộ năng lực.</h2>
+<p class="sub">Legend thiết kế, sản xuất và triển khai mọi lớp hạ tầng vật lý mà một phòng máy AI cần — trọn gói, hoặc chỉ đúng lớp bạn đang thiếu.</p>
+<ul>
+<li>Thiết kế cho AI</li>
+<li>Sản xuất tại Việt Nam</li>
+<li>Giao toàn cầu từ Singapore</li>
+</ul>
+</div>
+<figure class="rackvid" style="margin:0">
+<video aria-label="Tủ AI Legend mở cánh cửa, để lộ dàn máy chủ và hệ cáp bên trong" muted="" playsinline="" poster="assets/rack-open-poster.jpg?v=2" preload="none">
+<source src="../assets/rack-open.webm" type="video/webm"/>
+<source src="../assets/rack-open.mp4" type="video/mp4"/>
+</video>
+</figure>
+</div>
+</section>
 <!-- ================= TRUSTED ================= -->
-<section id="trusted">
+<section class="tint" id="trusted">
 <div class="wrap">
 <div class="lede">
 <p class="kicker">Được tin dùng bởi</p>
@@ -1619,6 +1619,21 @@ footer{border-top:var(--rule-dark);background:var(--color-brand-900);color:#8e9a
     io.observe(el);
   }
 
+  // The rack clip plays once, when it reaches the screen. It stays on its last
+  // frame afterwards rather than looping.
+  var rackVid = document.querySelector('.rackvid video');
+  if (rackVid) {
+    if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) {
+      rackVid.removeAttribute('preload');            // poster only
+    } else {
+      onceInView(rackVid, function(){
+        rackVid.preload = 'auto';
+        var go = rackVid.play();
+        if (go && go.catch) go.catch(function(){});   // autoplay blocked: poster stands in
+      });
+    }
+  }
+
   var strip = document.querySelector('.specstrip');
   onceInView(strip, function(){ countUp(strip.querySelectorAll('dd'), 3000, 100); });
 
@@ -1669,44 +1684,6 @@ footer{border-top:var(--rule-dark);background:var(--color-brand-900);color:#8e9a
   } else {
     panel.classList.add('is-live');
   }
-})();
-
-/* View switcher. The document ships with a 1280 px viewport, so a phone renders
-   the desktop layout at true proportions by default; desktop browsers ignore
-   the meta tag and are unaffected. The control lets a visitor drop to the
-   responsive layout, and #mobile opens there directly. */
-(function(){
-  var DESKTOP = 'width=1280';
-  var MOBILE  = 'width=device-width, initial-scale=1';
-  var btn = document.getElementById('viewtoggle');
-
-  // screen.* reports the hardware, which the viewport meta cannot change —
-  // window.innerWidth would already read 1280 here.
-  var small = Math.min(screen.width || 9999, screen.height || 9999) <= 820;
-  var forced = small;
-
-  function apply(next){
-    forced = next;
-    // Replacing the node is more reliable than editing content in place on iOS.
-    var old = document.getElementById('vp');
-    var vp = document.createElement('meta');
-    vp.id = 'vp'; vp.name = 'viewport';
-    vp.content = next ? DESKTOP : MOBILE;
-    old.parentNode.replaceChild(vp, old);
-    document.documentElement.classList.toggle('forced-desktop', next);
-    btn.textContent = next ? 'Mobile view' : 'Desktop view';
-    btn.setAttribute('aria-pressed', next ? 'true' : 'false');
-    setTimeout(function(){ window.dispatchEvent(new Event('resize')); }, 60);
-  }
-
-  if (!small) {
-    // A real desktop: leave the meta alone, keep the control hidden.
-    btn.textContent = 'Desktop view';
-  } else {
-    apply(location.hash !== '#mobile');
-  }
-
-  btn.addEventListener('click', function(){ apply(!forced); });
 })();
 
 (function(){
