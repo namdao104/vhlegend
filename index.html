@@ -275,6 +275,65 @@ nav a:active{color:var(--color-brand-100)}
 .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.06)}
 .btn[aria-disabled="true"]{opacity:.45;pointer-events:none}
 
+/* ---------- mobile menu (≤1000px) ----------
+   Below 1000px the link list is withdrawn, so a menu button takes the
+   language switcher's place and opens one panel with the section links and
+   the language choice. The script builds it from the existing nav and
+   language list, so this block is identical on all three language pages.
+   Without script the bar keeps the original language switcher. */
+.menu-btn,.menu-panel{display:none}
+.menu-btn{flex:none;align-items:center;justify-content:center;width:48px;height:48px;padding:0;
+  background:transparent;color:#c6cfe2;cursor:pointer;
+  border:1px solid rgba(202,220,252,.28);border-radius:var(--radius-xs);
+  transition:color var(--motion-fast) var(--ease),border-color var(--motion-fast) var(--ease)}
+.menu-btn:hover{color:#fff;border-color:rgba(202,220,252,.6)}
+.menu-btn:active{color:var(--color-brand-100)}
+.menu-btn[aria-expanded="true"]{color:#fff;border-color:var(--color-accent)}
+.menu-icon{position:relative;width:18px;height:12px}
+.menu-icon span{position:absolute;left:0;width:100%;height:2px;border-radius:1px;background:currentColor;
+  transition:transform var(--motion-normal) var(--ease),opacity var(--motion-fast) var(--ease)}
+.menu-icon span:nth-child(1){top:0}
+.menu-icon span:nth-child(2){top:5px}
+.menu-icon span:nth-child(3){top:10px}
+.menu-btn[aria-expanded="true"] .menu-icon span:nth-child(1){transform:translateY(5px) rotate(45deg)}
+.menu-btn[aria-expanded="true"] .menu-icon span:nth-child(2){opacity:0}
+.menu-btn[aria-expanded="true"] .menu-icon span:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
+
+.menu-panel{position:absolute;left:0;right:0;top:100%;
+  background:var(--color-brand-900);border-bottom:var(--rule-dark);box-shadow:0 12px 32px rgba(0,0,0,.4);
+  max-height:calc(100vh - var(--header-h));max-height:calc(100dvh - var(--header-h));
+  overflow-y:auto;overscroll-behavior:contain;animation:menu-in var(--motion-normal) var(--ease)}
+@keyframes menu-in{from{opacity:0;transform:translateY(-6px)}}
+.menu-panel .wrap{padding-block:var(--space-3) var(--space-10)}
+/* .menu-links is a nav, so it restates what the bar's nav rules set */
+.menu-links{display:flex;flex-direction:column;align-items:stretch;gap:0;margin-left:0}
+.menu-links a{display:flex;align-items:center;min-height:52px;padding:0;
+  color:#c6cfe2;text-decoration:none;font-size:var(--font-size-xl);font-weight:500;
+  border-bottom:var(--rule-dark);
+  transition:color var(--motion-fast) var(--ease),border-color var(--motion-fast) var(--ease)}
+.menu-links a:hover{color:#fff;border-bottom-color:var(--color-accent)}
+.menu-links a:active{color:var(--color-brand-100)}
+.menu-langs{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3);margin-top:var(--space-9)}
+.menu-langs a{display:flex;align-items:center;justify-content:center;gap:var(--space-3);min-height:48px;
+  padding:var(--space-3) var(--space-4);color:#c6cfe2;text-decoration:none;
+  font-size:var(--font-size-lg);font-weight:500;white-space:nowrap;
+  border:1px solid rgba(202,220,252,.28);border-radius:var(--radius-xs);
+  transition:color var(--motion-fast) var(--ease),border-color var(--motion-fast) var(--ease)}
+.menu-langs a:hover{color:#fff;border-color:rgba(202,220,252,.6)}
+.menu-langs a[aria-current="true"]{color:var(--color-accent-bright);border-color:var(--color-accent);font-weight:600}
+
+@media (max-width:1000px){
+  header.has-menu .bar{gap:var(--space-5)}
+  header.has-menu .bar > .btn-primary{margin-left:auto}
+  header.has-menu .langs{display:none}
+  header.has-menu .menu-btn{display:flex}
+  header.has-menu .menu-panel:not([hidden]){display:block}
+}
+@media (max-width:640px){.menu-btn{width:44px;height:44px}}
+/* Three native names do not fit side by side below ~380px; the flag moves
+   above the name instead of the row wrapping. */
+@media (max-width:380px){.menu-langs a{flex-direction:column;gap:var(--space-2);font-size:var(--font-size-md)}}
+
 /* ---------- hero ---------- */
 .hero{position:relative;background:var(--color-brand-900);color:#fff;padding-block:var(--space-13) var(--space-12);overflow:hidden}
 .hero::after{
@@ -379,11 +438,18 @@ nav a:active{color:var(--color-brand-100)}
 }
 .mapwrap figcaption{margin-top:var(--space-7);font-size:var(--font-size-md);color:var(--color-neutral-500);
   text-align:center}
+/* Phones: the full 3.5:1 world is too small to read, so the map crops to the
+   part that carries the story — Europe through Asia-Pacific — and swaps to a
+   second label set placed for that crop. The SVG's preserveAspectRatio is
+   "xMaxYMid slice": on desktop the box matches the viewBox and nothing is
+   cropped; here the narrower box keeps the right-hand 1430 units. North
+   America sits off the crop, so its route leaves the left edge with its label. */
+.worldmap .labels-compact{display:none}
 @media (max-width:760px){
-  /* 3.5:1 — at phone width the labels stop being legible, so it scrolls at a
-     readable size instead of shrinking. */
-  .mapwrap{overflow-x:auto}
-  .worldmap{width:860px;max-width:none}
+  .mapwrap{margin-inline:0}
+  .worldmap{aspect-ratio:1430/800;max-width:560px}
+  .worldmap .labels-wide{display:none}
+  .worldmap .labels-compact{display:inline}
   .mapwrap figcaption{text-align:left}
 }
 .rolelist{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-10);margin-top:var(--space-11)}
@@ -792,7 +858,7 @@ footer{border-top:var(--rule-dark);background:var(--color-brand-900);color:#8e9a
       <p class="sub">Manufacturing economics sit in Vietnam. Contracting confidence and engineering access sit in Singapore. Customers get both, four hours apart.</p>
     </div>
     <figure class="mapwrap">
-      <svg class="worldmap" viewBox="0 0 2800 800" role="img"
+      <svg class="worldmap" preserveAspectRatio="xMaxYMid slice" viewBox="0 0 2800 800" role="img"
            aria-label="World map: the Vietnam plant and Singapore head office, with routes to North America, Europe, the Middle East and India, and Australia and APAC"
            xmlns="http://www.w3.org/2000/svg">
         <g class="land"><path d="M2706,687 L2705,687 L2704,686 L2701,686 L2700,685 L2697,685 L2696,684 L2693,684 L2692,683 L2689,683 L2688,682 L2685,682 L2684,681 L2683,681 L2660,704 L2659,704 L2658,705 L2656,705 L2655,706 L2652,706 L2651,707 L2649,707 L2648,708 L2646,708 L2645,709 L2644,709 L2621,732 L2624,732 L2625,731 L2632,731 L2633,730 L2640,730 L2641,729 L2647,729 L2648,728 L2655,728 L2656,727 L2663,727 L2664,726 L2667,726 L2668,725 L2669,725 L2672,722 L2673,722 L2675,720 L2676,720 L2678,718 L2679,718 L2682,715 L2683,715 L2685,713 L2686,713 L2689,710 L2690,710 L2692,708 L2692,707 L2694,705 L2694,704 L2696,702 L2696,701 L2698,699 L2698,698 L2701,695 L2701,694 L2703,692 L2703,691 L2705,689 L2705,688ZM1664,540 L1664,541 L1663,542 L1663,544 L1662,545 L1662,547 L1661,548 L1661,550 L1660,551 L1660,552 L1659,553 L1659,555 L1658,556 L1658,558 L1657,559 L1657,561 L1656,562 L1656,591 L1657,592 L1657,593 L1659,595 L1659,596 L1662,599 L1662,600 L1664,602 L1664,603 L1666,605 L1666,606 L1669,609 L1669,610 L1671,612 L1671,613 L1672,614 L1673,613 L1674,613 L1677,610 L1678,610 L1681,607 L1682,607 L1685,604 L1686,604 L1689,601 L1690,601 L1693,598 L1694,598 L1695,597 L1695,596 L1696,595 L1696,594 L1697,593 L1697,592 L1698,591 L1698,590 L1699,589 L1699,588 L1700,587 L1700,586 L1701,585 L1701,584 L1702,583 L1702,582 L1703,581 L1703,579 L1704,578 L1704,577 L1705,576 L1705,575 L1706,574 L1706,573 L1707,572 L1707,571 L1708,570 L1708,569 L1709,568 L1709,567 L1710,566 L1710,565 L1711,564 L1711,563 L1710,563 L1709,562 L1708,562 L1707,561 L1706,561 L1705,560 L1704,560 L1703,559 L1702,559 L1701,558 L1700,558 L1699,557 L1698,557 L1697,556 L1696,556 L1695,555 L1694,555 L1693,554 L1692,554 L1691,553 L1690,553 L1689,552 L1688,552 L1687,551 L1686,551 L1685,550 L1684,550 L1683,549 L1682,549 L1681,548 L1680,548 L1679,547 L1678,547 L1677,546 L1676,546 L1675,545 L1674,545 L1673,544 L1672,544 L1671,543 L1670,543 L1669,542 L1668,542 L1667,541 L1666,541 L1665,540ZM2201,618 L2216,653 L2240,670 L2284,659 L2328,653 L2365,659 L2393,669 L2418,687 L2458,692 L2488,681 L2512,653 L2512,625 L2487,601 L2456,579 L2426,535 L2384,540 L2347,535 L2279,566 L2236,583 L2208,597ZM2247,450 L2244,450 L2243,449 L2238,449 L2237,448 L2232,448 L2231,447 L2226,447 L2225,446 L2220,446 L2219,445 L2215,445 L2214,446 L2212,446 L2211,447 L2209,447 L2208,448 L2206,448 L2205,449 L2204,449 L2203,450 L2201,450 L2200,451 L2198,451 L2197,452 L2195,452 L2194,453 L2192,453 L2191,454 L2189,454 L2188,455 L2186,455 L2185,456 L2183,456 L2182,457 L2181,457 L2180,458 L2178,458 L2177,459 L2175,459 L2174,460 L2172,460 L2171,461 L2170,461 L2171,462 L2171,463 L2172,464 L2172,465 L2173,466 L2173,467 L2174,468 L2174,469 L2175,470 L2175,471 L2176,472 L2176,473 L2177,474 L2177,475 L2178,476 L2178,477 L2179,478 L2179,479 L2180,480 L2180,481 L2181,482 L2181,483 L2182,484 L2182,485 L2183,486 L2183,487 L2184,488 L2184,489 L2185,490 L2240,490 L2240,488 L2241,487 L2241,482 L2242,481 L2242,476 L2243,475 L2243,470 L2244,469 L2244,465 L2245,464 L2245,459 L2246,458 L2246,453 L2247,452ZM2061,445 L2064,448 L2061,450 L2089,478 L2115,507 L2132,507 L2176,523 L2245,523 L2307,529 L2418,518 L2411,490 L2347,495 L2302,518 L2235,518 L2177,512 L2132,485 L2102,462 L2082,454 L2068,445 L2065,447ZM1050,507 L980,484 L933,473 L917,445 L841,416 L776,411 L715,428 L700,473 L725,510 L777,574 L764,639 L754,706 L761,751 L777,783 L808,771 L838,734 L872,697 L885,671 L945,621 L1011,597 L1025,554ZM2255,371 L2251,375 L2251,376 L2244,383 L2244,384 L2240,388 L2244,392 L2244,393 L2251,400 L2251,401 L2256,406 L2256,407 L2257,408 L2257,409 L2258,410 L2258,411 L2260,413 L2260,414 L2261,415 L2261,416 L2262,417 L2262,418 L2264,420 L2264,421 L2265,422 L2265,423 L2266,424 L2266,425 L2268,427 L2268,428 L2269,429 L2269,430 L2270,431 L2270,432 L2271,433 L2273,433 L2274,434 L2278,434 L2279,435 L2283,435 L2284,436 L2289,436 L2290,437 L2294,437 L2295,438 L2299,438 L2300,439 L2302,439 L2302,416 L2301,415 L2301,414 L2300,413 L2300,412 L2299,411 L2299,410 L2297,408 L2297,407 L2296,406 L2296,405 L2295,404 L2295,403 L2293,401 L2293,400 L2292,399 L2292,398 L2291,397 L2291,396 L2289,394 L2289,393 L2288,392 L2288,391 L2287,390 L2287,389 L2285,387 L2284,387 L2283,386 L2282,386 L2281,385 L2280,385 L2279,384 L2278,384 L2277,383 L2276,383 L2274,381 L2273,381 L2272,380 L2271,380 L2270,379 L2269,379 L2268,378 L2267,378 L2265,376 L2264,376 L2263,375 L2262,375 L2261,374 L2260,374 L2259,373 L2258,373 L2257,372 L2256,372ZM1275,270 L1239,312 L1197,354 L1190,388 L1229,429 L1260,450 L1337,450 L1392,478 L1417,575 L1439,627 L1470,670 L1524,664 L1570,637 L1592,610 L1633,569 L1633,527 L1641,484 L1696,449 L1718,405 L1656,405 L1608,348 L1587,316 L1555,298 L1484,293 L1405,281 L1339,264ZM2450,225 L2448,225 L2447,226 L2443,226 L2442,227 L2438,227 L2437,228 L2434,228 L2433,229 L2429,229 L2428,230 L2426,230 L2426,231 L2425,232 L2425,234 L2424,235 L2424,237 L2423,238 L2423,240 L2421,243 L2421,245 L2420,246 L2420,248 L2419,249 L2419,251 L2418,252 L2417,255 L2415,257 L2415,258 L2413,260 L2413,261 L2411,263 L2411,264 L2410,265 L2409,265 L2408,266 L2407,266 L2406,267 L2405,267 L2404,268 L2401,269 L2399,271 L2398,271 L2397,272 L2396,272 L2395,273 L2392,274 L2390,276 L2389,276 L2384,279 L2382,279 L2381,280 L2376,280 L2375,281 L2371,281 L2370,282 L2367,282 L2366,283 L2364,283 L2363,284 L2360,284 L2359,285 L2357,285 L2356,286 L2353,286 L2352,287 L2349,287 L2348,288 L2346,288 L2345,289 L2342,289 L2341,290 L2339,290 L2338,291 L2335,291 L2334,292 L2333,292 L2334,293 L2335,293 L2338,296 L2339,296 L2341,298 L2342,298 L2343,297 L2344,297 L2347,295 L2349,295 L2350,294 L2351,294 L2356,291 L2358,291 L2359,290 L2360,290 L2363,288 L2365,288 L2366,287 L2367,287 L2372,284 L2374,284 L2375,283 L2376,283 L2377,282 L2378,282 L2383,279 L2387,279 L2388,278 L2393,278 L2394,277 L2399,277 L2400,276 L2403,276 L2404,275 L2404,274 L2406,272 L2406,271 L2408,269 L2408,268 L2410,266 L2410,265 L2422,253 L2423,253 L2442,234 L2442,233ZM1298,146 L1297,146 L1296,147 L1295,147 L1294,148 L1292,148 L1291,149 L1290,149 L1289,150 L1287,150 L1286,151 L1285,151 L1284,152 L1283,152 L1283,153 L1282,154 L1282,155 L1281,156 L1281,157 L1280,158 L1280,159 L1279,160 L1279,161 L1278,162 L1278,163 L1277,164 L1277,165 L1276,166 L1276,167 L1275,168 L1275,191 L1276,191 L1277,190 L1280,190 L1281,189 L1284,189 L1285,188 L1288,188 L1289,187 L1292,187 L1293,186 L1296,186 L1297,185 L1300,185 L1301,184 L1305,184 L1306,183 L1309,183 L1310,182 L1314,182 L1315,181 L1319,181 L1320,180 L1322,180 L1322,179 L1321,178 L1321,177 L1320,176 L1320,175 L1319,174 L1319,173 L1318,172 L1318,171 L1317,170 L1317,169 L1316,168 L1316,167 L1315,166 L1315,165 L1314,164 L1314,163 L1306,155 L1306,154ZM886,180 L823,134 L734,88 L662,61 L584,84 L475,90 L331,78 L76,73 L15,101 L38,135 L92,157 L187,135 L285,162 L350,202 L358,248 L454,317 L505,360 L603,376 L668,416 L715,422 L676,388 L604,377 L568,355 L567,327 L621,309 L668,309 L700,332 L692,298 L730,277 L746,247 L775,237ZM2706,90 L2646,78 L2328,56 L2141,33 L2058,33 L1791,77 L1751,90 L1693,90 L1635,101 L1567,77 L1498,77 L1384,118 L1361,140 L1404,142 L1376,169 L1291,202 L1304,230 L1252,230 L1244,270 L1306,264 L1347,235 L1413,219 L1437,225 L1415,259 L1447,259 L1470,247 L1505,242 L1617,247 L1640,226 L1692,235 L1711,264 L1695,304 L1757,326 L1773,349 L1757,377 L1788,332 L1836,332 L1883,361 L1913,422 L1944,433 L1944,388 L1975,349 L2038,355 L2083,427 L2123,467 L2137,424 L2170,411 L2154,377 L2177,354 L2234,336 L2263,298 L2272,258 L2335,229 L2426,214 L2434,169 L2415,145 L2485,135 L2567,135 L2643,101ZM1166,45 L1127,11 L1016,0 L878,10 L777,33 L762,78 L871,135 L973,135 L1072,90 L1151,78Z" fill="var(--map-land)"/></g>
@@ -816,13 +882,21 @@ footer{border-top:var(--rule-dark);background:var(--color-brand-900);color:#8e9a
         <path d="M2030.0,352.0 L2057.5,389.0 L2085.0,352.0 Z" fill="var(--map-vn)"/><circle cx="2057.5" cy="321.5" r="34.5" fill="var(--map-vn)"/><circle cx="2057.5" cy="321.5" r="11.5" fill="#ffffff"/>
         <path d="M2142.0,434.0 L2169.5,471.0 L2197.0,434.0 Z" fill="var(--map-sg)"/><circle cx="2169.5" cy="403.5" r="34.5" fill="var(--map-sg)"/><circle cx="2169.5" cy="403.5" r="11.5" fill="#ffffff"/>
       
-        <g class="labels" font-family="var(--font-stack)" font-weight="700" font-size="38" letter-spacing="2.2">
+        <g class="labels labels-wide" font-family="var(--font-stack)" font-weight="700" font-size="38" letter-spacing="2.2">
           <text x="544"  y="198" text-anchor="middle" fill="var(--map-vn)">NORTH AMERICA</text>
           <text x="1400" y="142" text-anchor="middle" fill="var(--map-vn)">EUROPE</text>
           <text x="1750" y="408" text-anchor="middle" fill="var(--map-vn)">MIDDLE EAST &amp; INDIA</text>
           <text x="2364" y="690" text-anchor="middle" fill="var(--map-vn)">AUSTRALIA &amp; APAC</text>
           <text x="2110" y="284" text-anchor="start"  fill="var(--map-vn)">VIETNAM PLANT</text>
           <text x="2232" y="417" text-anchor="start"  fill="var(--map-sg-text)">SINGAPORE HEAD OFFICE</text>
+        </g>
+        <g class="labels labels-compact" font-family="var(--font-stack)" font-weight="700" font-size="42" letter-spacing="2.2">
+          <text x="1386" y="150" text-anchor="start" fill="var(--map-vn)">EUROPE</text>
+          <text x="1386" y="505" text-anchor="start" fill="var(--map-vn)">← NORTH AMERICA</text>
+          <text text-anchor="end" fill="var(--map-vn)"><tspan x="1726" y="332">MIDDLE EAST</tspan><tspan x="1726" y="378">&amp; INDIA</tspan></text>
+          <text x="2110" y="284" text-anchor="start" fill="var(--map-vn)">VIETNAM PLANT</text>
+          <text text-anchor="start" fill="var(--map-sg-text)"><tspan x="2232" y="417">SINGAPORE</tspan><tspan x="2232" y="463">HEAD OFFICE</tspan></text>
+          <text x="2364" y="690" text-anchor="middle" fill="var(--map-vn)">AUSTRALIA &amp; APAC</text>
         </g>
       </svg>
       <figcaption>Manufactured at the Vietnam plant, engineered and contracted from Singapore, delivered to customers worldwide.</figcaption>
@@ -1504,6 +1578,89 @@ footer{border-top:var(--rule-dark);background:var(--color-brand-900);color:#8e9a
   });
 })();
 
+/* Mobile menu: built from the page's own nav and language list, so the link
+   text stays in one place per language page. Closes on a link tap, Escape,
+   an outside tap, or when the window widens past the breakpoint. */
+(function(){
+  var header = document.querySelector('header');
+  var bar = header && header.querySelector('.bar');
+  var nav = header && header.querySelector('nav');
+  var langLinks = header ? header.querySelectorAll('.lang-menu a') : [];
+  if (!bar || !nav) return;
+
+  var code = (document.documentElement.lang || 'en').slice(0, 2);
+  var words = {
+    en: {menu:'Menu', lang:'Language'},
+    vi: {menu:'Menu', lang:'Ngôn ngữ'},
+    ko: {menu:'메뉴', lang:'언어'}
+  }[code] || {menu:'Menu', lang:'Language'};
+
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'menu-btn';
+  btn.setAttribute('aria-label', words.menu);
+  btn.setAttribute('aria-expanded', 'false');
+  btn.setAttribute('aria-controls', 'site-menu');
+  btn.innerHTML = '<span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span>';
+
+  var panel = document.createElement('div');
+  panel.className = 'menu-panel';
+  panel.id = 'site-menu';
+  panel.hidden = true;
+  var inner = document.createElement('div');
+  inner.className = 'wrap';
+
+  var links = document.createElement('nav');
+  links.className = 'menu-links';
+  links.setAttribute('aria-label', nav.getAttribute('aria-label') || words.menu);
+  Array.prototype.forEach.call(nav.querySelectorAll('a'), function(a){ links.appendChild(a.cloneNode(true)); });
+  inner.appendChild(links);
+
+  if (langLinks.length) {
+    var langs = document.createElement('div');
+    langs.className = 'menu-langs';
+    langs.setAttribute('role', 'group');
+    langs.setAttribute('aria-label', words.lang);
+    Array.prototype.forEach.call(langLinks, function(a){
+      var c = a.cloneNode(true);
+      c.removeAttribute('role');
+      // The flag SVGs carry ids (clipPath); give the copies their own so the
+      // references do not resolve into the hidden desktop switcher.
+      Array.prototype.forEach.call(c.querySelectorAll('[id]'), function(el){
+        var from = 'url(#' + el.id + ')', to = 'url(#' + el.id + '-m)';
+        el.id += '-m';
+        Array.prototype.forEach.call(c.querySelectorAll('[clip-path],[mask],[fill]'), function(n){
+          ['clip-path', 'mask', 'fill'].forEach(function(attr){
+            var v = n.getAttribute(attr);
+            if (v && v.indexOf(from) > -1) n.setAttribute(attr, v.split(from).join(to));
+          });
+        });
+      });
+      langs.appendChild(c);
+    });
+    inner.appendChild(langs);
+  }
+
+  panel.appendChild(inner);
+  bar.appendChild(btn);
+  header.appendChild(panel);
+  header.classList.add('has-menu');
+
+  function open(state){
+    panel.hidden = !state;
+    btn.setAttribute('aria-expanded', state ? 'true' : 'false');
+  }
+  btn.addEventListener('click', function(e){ e.stopPropagation(); open(panel.hidden); });
+  links.addEventListener('click', function(e){ if (e.target.closest('a')) open(false); });
+  document.addEventListener('click', function(e){ if (!panel.hidden && !header.contains(e.target)) open(false); });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && !panel.hidden) { open(false); btn.focus(); }
+  });
+  var wide = window.matchMedia('(min-width:1001px)');
+  var onWide = function(){ if (wide.matches) open(false); };
+  if (wide.addEventListener) wide.addEventListener('change', onWide); else wide.addListener(onWide);
+})();
+
 /* WhatsApp: one number per link, so the button opens a short list of the two
    people a customer can reach. */
 (function(){
@@ -1692,27 +1849,10 @@ footer{border-top:var(--rule-dark);background:var(--color-brand-900);color:#8e9a
   });
 })();
 
-/* The map scrolls sideways on narrow screens; open it on Vietnam and Singapore
-   rather than on the empty Pacific at the left edge. */
+/* World map: animate only while it is actually on screen. */
 (function(){
   var panel = document.querySelector('.mapwrap');
   if (!panel) return;
-  var img = panel.querySelector('.worldmap');
-  function centre(){
-    // SVG elements have no offsetWidth — measure the rendered box instead.
-    var w = img ? img.getBoundingClientRect().width : 0;
-    if (!w) return;
-    if (panel.scrollWidth <= panel.clientWidth + 2) { panel.scrollLeft = 0; return; }
-    panel.scrollLeft = w * 0.78 - panel.clientWidth / 2;
-  }
-  // The map is lazy-loaded and the view switcher can change the layout width
-  // after load, so re-run on both.
-  window.addEventListener('load', centre);
-  window.addEventListener('resize', centre);
-  setTimeout(centre, 400);
-  centre();
-
-  // Animate only while the map is actually on screen.
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function(entries){
       entries.forEach(function(e){ panel.classList.toggle('is-live', e.isIntersecting); });
